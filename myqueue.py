@@ -7,22 +7,47 @@ from twilio.rest import Client
 
 class Queue:
 ​
-    def __init__(self):
-        self.account_sid = "ACXXXX"
-        self.auth_token = 'your_auth_token'
-        self.client = Client(account_sid, auth_token)
+    def __init__(self): # el init es el constructor de JS
+        self.account_sid = "AC877b01f1a9bf177dff569e3f93709be0" # lo saque de la pag de twilio
+        self.auth_token = '2c5acfe4020d54a9bf2bd6847837a02d' # lo saque de la pag de twilio
+        self.client = Client(self.account_sid, self.auth_token) # son los elementos q pide twilio
         self._queue = []
         # depending on the _mode, the queue has to behave like a FIFO or LIFO
         self._mode = 'FIFO'
 ​
-    def enqueue(self, item): #agregar a la lista vacia
+
+    def enqueue(self, item): # a quien estoy agregando a la fila
+        # POST append dequeue (item)
+        self._queue.append(item) # agrega la persona (item) a la lista
+        message = self.client.message.create( # recibe los atributos de client
+            bbody="fuiste agregado a la lista de espera",
+            to="5693458208",
+            from_='+14243756541'
+        )
+        #message.sid # mensaje en codigo y twilio te dice si lo recibio o no
+        # print(message.sid) para saber si esta agregando el elemento
+        # print(self.queue)
+
+    def get_queue(self): # muestra todo la lista
         pass
-    def dequeue(self):
-        pass
-    def get_queue(self):
-        pass
-    def size(self):
+
+
+    def size(self): 
         return len(self._queue)
+
+    def dequeue(self): # lo elimino de la lista
+        if self._node == "FIFO":
+            self._queue.pop(item)
+            message = self.client.message.create( # recibe los atributos de client
+            bbody="ya fuiste atendido, adios!",
+            to="5693458208",
+            from_='+14243756541'
+        elif self._node == "LIFO":
+            self._queue.shift(item)
+            message = self.client.message.create( # recibe los atributos de client
+            bbody="ya fuiste atendido, adios!",
+            to="5693458208",
+            from_='+14243756541'
 
 
 

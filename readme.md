@@ -8,3 +8,4 @@
     $ pipenv install flask-cors
     $ pipenv install twilio
 
+    $ pipenv app.py runserver
