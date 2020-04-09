@@ -6,31 +6,29 @@
 from twilio.rest import Client
 
 class Queue:
-​
     def __init__(self): # el init es el constructor de JS
-        self.account_sid = "AC877b01f1a9bf177dff569e3f93709be0" # lo saque de la pag de twilio
-        self.auth_token = '2c5acfe4020d54a9bf2bd6847837a02d' # lo saque de la pag de twilio
+        self.account_sid = "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" # lo saque de la pag de twilio
+        self.auth_token = 'your_auth_token' # lo saque de la pag de twilio
         self.client = Client(self.account_sid, self.auth_token) # son los elementos q pide twilio
         self._queue = []
         # depending on the _mode, the queue has to behave like a FIFO or LIFO
         self._mode = 'FIFO'
-​
 
     def enqueue(self, item): # a quien estoy agregando a la fila
         # POST append dequeue (item)
         self._queue.append(item) # agrega la persona (item) a la lista
-        message = self.client.message.create( # recibe los atributos de client
-            bbody="fuiste agregado a la lista de espera",
-            to="5693458208",
-            from_='+14243756541'
+        # recibe los atributos de client
+        message = self.client.messages.create (
+            body="fuiste agregado a la lista de espera",
+            to="123",
+            from_='+123'
         )
         #message.sid # mensaje en codigo y twilio te dice si lo recibio o no
         # print(message.sid) para saber si esta agregando el elemento
         # print(self.queue)
 
     def get_queue(self): # muestra todo la lista
-        pass
-
+        self._queue()
 
     def size(self): 
         return len(self._queue)
@@ -38,18 +36,19 @@ class Queue:
     def dequeue(self): # lo elimino de la lista
         if self._node == "FIFO":
             self._queue.pop(item)
-            message = self.client.message.create( # recibe los atributos de client
-            bbody="ya fuiste atendido, adios!",
-            to="5693458208",
-            from_='+14243756541'
+            # recibe los atributos de client
+            message = self.client.messages.create (
+            body="ya fuiste atendido, adios!",
+            to="234",
+            from_='+234'
+            )
         elif self._node == "LIFO":
             self._queue.shift(item)
-            message = self.client.message.create( # recibe los atributos de client
-            bbody="ya fuiste atendido, adios!",
-            to="5693458208",
-            from_='+14243756541'
-
-
+            message = self.client.messages.create (
+            body="ya fuiste atendido, adios!",
+            to="234",
+            from_='+234'
+            )
 
 '''
 message = client.messages.create(
